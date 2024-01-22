@@ -1,5 +1,6 @@
 package ru.netology.cloud.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
@@ -48,12 +49,15 @@ public class FileApiImpl implements FileApi {
         //return ResponseEntity.ok(new File("./storage/" + filename));
         //return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(file.toString());
         //return ResponseEntity.ok(file); "application/octet-stream" MULTIPART_MIXED
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_XML).body(file);
+
+        //+ return ResponseEntity.ok().contentType(MediaType.APPLICATION_XML).body(file);
+        return new ResponseEntity("Hello World!", HttpStatus.OK);
     }
 
         @Override
         public ResponseEntity<Void> fileDelete(String authToken, String filename) {
-                return FileApi.super.fileDelete(authToken, filename);
+                //return FileApi.super.fileDelete(authToken, filename);
+            return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
         }
 
         @Override
