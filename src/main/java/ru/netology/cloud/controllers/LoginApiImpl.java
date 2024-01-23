@@ -21,14 +21,8 @@ public class LoginApiImpl implements LoginApi{
     @PostMapping("/login")
     public ResponseEntity<Login> loginPost(@RequestBody LoginPostRequest loginPostRequest) {
       //  return LoginApi.super.loginPost(loginPostRequest);
-        System.out.println("HEEEEEEEEEEEEEEEEEELLLOOOOO");
-        System.out.println("9909067806"  + loginPostRequest);
-      //  System.out.println("lloggimm" + loginPostRequest.getLogin());
-      //  System.out.println("###########################################" + loginPostRequest);
-//        System.out.println("#############################################" + loginPostRequest.getLogin());
-//        System.out.println("############################################" + loginPostRequest.getPassword());
-//        System.out.println("To_String" + loginPostRequest.toString());
+        // Чтобы я не пытался писать здесь - это не работает
         return new ResponseEntity("Hello from Login!", HttpStatus.OK);
-       // return LoginApi.super.loginPost(loginPostRequest);
+
     }
 }

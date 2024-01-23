@@ -45,6 +45,7 @@ public class WebSecurityConfig {
         return jdbcUserDetailsManager;
     }
 
+    // Test 1
     ////////////////////////////////////////////////////////////////
 
 //    @Bean
@@ -59,7 +60,8 @@ public class WebSecurityConfig {
 
     ///////////////////////////////////////////////////////////////
 
- //4 Test
+    // Test 2
+    ///////////////////////////////////////////////////////////////
 
 //    @Bean
 //    SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
@@ -67,25 +69,26 @@ public class WebSecurityConfig {
 //                .authorizeRequests(auth -> auth
 //                        .requestMatchers("*").permitAll()
 //                )
-//                .httpBasic(Customizer.withDefaults())  //??
+//                .httpBasic(Customizer.withDefaults())
 //                .formLogin(Customizer.withDefaults())
 //                .csrf(csrf -> csrf.disable())
 //                .cors(Customizer.withDefaults())
 //                .build();
 //    }
 
-    //5TRest
+    ///////////////////////////////////////////////////////////////
+    // Test2
 
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(auth -> auth
-                 //       .dispatcherTypeMatchers(HttpMethod.valueOf("/")).permitAll()
-                      //  .requestMatchers("/login").permitAll()
+                 //     .dispatcherTypeMatchers(HttpMethod.valueOf("/")).permitAll()
+                 //     .requestMatchers("/login").permitAll()
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())  //??
+                .httpBasic(Customizer.withDefaults())
               //.formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                        .loginPage("/login")
@@ -101,6 +104,7 @@ public class WebSecurityConfig {
     }
 
     // CORS
+    ///////////////////////////////////////////////////////////////
     @Configuration
     @EnableWebMvc
     class WebConfig implements WebMvcConfigurer {
@@ -112,13 +116,14 @@ public class WebSecurityConfig {
                     .allowedOrigins("http://localhost:8081")
                     .allowedOrigins("http://192.168.99.100:8081")
                     .allowedOrigins("http://192.168.1.145:8081")
-//                    .allowedOrigins("http://192.168.99.100")
-//                    .allowedOrigins("http://192.168.1.89")
+//                  .allowedOrigins("http://192.168.99.100")
+//                  .allowedOrigins("http://192.168.1.89")
 //                  .allowedOrigins("*")
                     .allowedMethods("*");
         }
     }
 
+    ///////////////////////////////////////////////////////////////
     // CORS
 
 }
