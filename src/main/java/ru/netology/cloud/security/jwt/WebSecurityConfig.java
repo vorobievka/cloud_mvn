@@ -27,48 +27,45 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-//    @Bean
-//    JdbcUserDetailsManager users(DataSource dataSource, PasswordEncoder encoder) {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(encoder.encode("password"))
-//                .roles("ADMIN")
-//                .build();
-//        UserDetails cust = User.builder()
-//                .username("cust")
-//                .password(encoder.encode("cust"))
-//                .roles("CUST")
-//                .build();
-//        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-////        jdbcUserDetailsManager.createUser(admin);
-////        jdbcUserDetailsManager.createUser(cust);
-//        return jdbcUserDetailsManager;
-//    }
-
- //4 Test
-
     @Bean
-    SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        return http
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("*").permitAll()
-                )
-                .httpBasic(Customizer.withDefaults())  //??
-                .formLogin(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .cors(Customizer.withDefaults())
+    JdbcUserDetailsManager users(DataSource dataSource, PasswordEncoder encoder) {
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(encoder.encode("password"))
+                .roles("ADMIN")
                 .build();
+        UserDetails cust = User.builder()
+                .username("cust")
+                .password(encoder.encode("cust"))
+                .roles("CUST")
+                .build();
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+//        jdbcUserDetailsManager.createUser(admin);
+//        jdbcUserDetailsManager.createUser(cust);
+        return jdbcUserDetailsManager;
     }
 
-    //5TRest
+    ////////////////////////////////////////////////////////////////
+
+//    @Bean
+//    SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
+//      return    http
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .permitAll()
+//
+//                ).build();
+//    }
+
+    ///////////////////////////////////////////////////////////////
+
+ //4 Test
 
 //    @Bean
 //    SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
 //        return http
 //                .authorizeRequests(auth -> auth
-//                        .dispatcherTypeMatchers(HttpMethod.valueOf("/")).permitAll()
-//                        .requestMatchers("/login").permitAll()
-//                        .anyRequest().authenticated()
+//                        .requestMatchers("*").permitAll()
 //                )
 //                .httpBasic(Customizer.withDefaults())  //??
 //                .formLogin(Customizer.withDefaults())
@@ -76,6 +73,27 @@ public class WebSecurityConfig {
 //                .cors(Customizer.withDefaults())
 //                .build();
 //    }
+
+    //5TRest
+
+    @Bean
+    SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests(auth -> auth
+                 //       .dispatcherTypeMatchers(HttpMethod.valueOf("/")).permitAll()
+                      //  .requestMatchers("/login").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())  //??
+              //.formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                       .loginPage("/login")
+                       .permitAll())
+                .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
+                .build();
+    }
 
     @Bean
     PasswordEncoder passwordEncoder(){
